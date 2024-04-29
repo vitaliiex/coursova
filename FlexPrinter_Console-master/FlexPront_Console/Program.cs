@@ -25,7 +25,7 @@ namespace FlexPrint_Console
 
 			IPrinterManager printerManager = new PrinterManager(configuration);
 
-			//Створюєм сутності
+			//утворення нових сутностей
 
 			LaserPrinter l1 = new LaserPrinter()
 			{
@@ -71,7 +71,7 @@ namespace FlexPrint_Console
 			printerManager.AddPrinter(i1);
 			printerManager.AddPrinter(i2);
 
-			//Получаєм дані і виводимо
+			//отримання та імпорт данних
 			var printers =	printerManager.GetPrinters();
 			PrintPrinter_Console(printers);
 
