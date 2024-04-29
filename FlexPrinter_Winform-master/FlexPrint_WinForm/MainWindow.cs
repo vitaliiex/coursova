@@ -1,4 +1,4 @@
-﻿using FlexPrint_Console.Enum;
+using FlexPrint_Console.Enum;
 using FlexPrint_Console.Manager;
 using FlexPrint_Console.Model;
 using FlexPrint_WinForm.Model;
@@ -14,7 +14,7 @@ namespace FlexPrint_WinForm
 		{
 			printerManager = new PrinterManager(config);
 			InitializeComponent();
-			MinimumSize = new Size(1000, 500);
+			MinimumSize = new Size(1060, 500);
 		}
 
 		private void Load_Data_Click(object sender, EventArgs e)
@@ -28,6 +28,13 @@ namespace FlexPrint_WinForm
 		private void Remove_Click(object sender, EventArgs e)
 		{
 
+			if (dataGridView1.SelectedRows.Count > 0)
+			{
+
+				DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+				DialogResult result = MessageBox.Show("Are you sure you want to delete this entry?", "Confirm deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+
 				if (result == DialogResult.Yes)
 				{
 
@@ -37,10 +44,10 @@ namespace FlexPrint_WinForm
 
 					dataGridView1.Rows.Remove(selectedRow);
 				}
-		
-				else
+			}
+			else
 			{
-				MessageBox.Show("Please select  row to delete.", "Error deleting", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				MessageBox.Show("Please select a row to delete.", "Error deleting", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
 
@@ -71,7 +78,7 @@ namespace FlexPrint_WinForm
 			string selectedMethod;
 			if (SortingMethod.SelectedItem == null)
 			{
-				MessageBox.Show("Please select an valid sorting method.");
+				MessageBox.Show("Please select a valid sorting method.");
 				return;
 			}
 			else
@@ -118,7 +125,7 @@ namespace FlexPrint_WinForm
 					LinkedList<Printer> officePrinters = printerManager.GetOfficePrinters(printers);
 					if (officePrinters.Count == 0)
 					{
-						MessageBox.Show($"There no printers in the current list, {selectedOption}");
+						MessageBox.Show($"There are no printers in the current list, {selectedOption}");
 						return;
 					}
 					PrintforView(officePrinters);
@@ -128,7 +135,7 @@ namespace FlexPrint_WinForm
 					LinkedList<Printer> homePrinters = printerManager.GetHomePrinters(printers);
 					if (homePrinters.Count == 0)
 					{
-						MessageBox.Show($"There no printers in the current list, {selectedOption}");
+						MessageBox.Show($"There are no printers in the current list, {selectedOption}");
 						return;
 					}
 					PrintforView(homePrinters);
@@ -137,7 +144,7 @@ namespace FlexPrint_WinForm
 					LinkedList<Printer> laserPrinters = printerManager.GetLaserPrinters(printers);
 					if (laserPrinters.Count == 0)
 					{
-						MessageBox.Show($"There no printers in the current list, {selectedOption}");
+						MessageBox.Show($"There are no printers in the current list, {selectedOption}");
 						return;
 					}
 					PrintforView(laserPrinters);
@@ -146,7 +153,7 @@ namespace FlexPrint_WinForm
 					LinkedList<Printer> inkjetPrinters = printerManager.GetInkjetPrinters(printers);
 					if (inkjetPrinters.Count == 0)
 					{
-						MessageBox.Show($"There no printers in the current list, {selectedOption}");
+						MessageBox.Show($"There are no printers in the current list, {selectedOption}");
 						return;
 					}
 					PrintforView(inkjetPrinters);
@@ -254,6 +261,7 @@ namespace FlexPrint_WinForm
 									row.Cells["Price"].Value = editForm.Price;
 									row.Cells["PrinterSize"].Value = editForm.PrinterSize;
 									row.Cells["Purpose"].Value = editForm.Purpose;
+									row.Cells["LaserType"].Value = editForm.LaserType;
 									row.Cells["Duplex"].Value = editForm.Duplex;
 								}
 							}
