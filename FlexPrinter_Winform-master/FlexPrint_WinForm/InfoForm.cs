@@ -40,7 +40,20 @@ namespace FlexPrint_WinForm
 			Indotextbox.Location = new Point(10, textBoxY);
 		}
 
-		
+		private void ChangeFontsize_Click(object sender, EventArgs e)
+		{
+			if (int.TryParse(fontsizeCombobox.SelectedItem?.ToString(), out int newSize))
+			{
+				Indotextbox.Font = new Font(Indotextbox.Font.FontFamily, newSize);
+			
+
+				HeaderInfo.Font = new Font(HeaderInfo.Font.FontFamily, newSize);
+
+			
+				SizeF newSizeHeader = TextRenderer.MeasureText(HeaderInfo.Text, HeaderInfo.Font);
+
+				
+				HeaderInfo.Size = new Size((int)newSizeHeader.Width, (int)newSizeHeader.Height);
 			}
 
 		}
